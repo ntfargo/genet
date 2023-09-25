@@ -1,6 +1,5 @@
 import setuptools
 import genet
-from glob import glob
 
 with open('README.md', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
@@ -51,8 +50,8 @@ setuptools.setup(
         'pandas',
         'regex',
         'biopython',
-        'tensorflow==2.8.0',
-        'protobuf==3.20.*',
+        'tensorflow==2.13.0',
+        'protobuf==4.24.*',
         'silence_tensorflow',
         'pyarrow',
         'fastparquet',
