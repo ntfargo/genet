@@ -17,33 +17,38 @@
 ## Welcome to GenET
 GenET (Genome Editing Toolkit) is a library of various python functions for the purpose of analyzing and evaluating data from genome editing experiments. GenET is still in its early stages of development and continue to improve and expand. Currently planned functions include guideRNA design, saturation library design, deep sequenced data analysis, and guide RNA activity prediction.
 
-⚠️ This is a dev version of GenET "ntfargo-dev" branch, Please use main branch for stable version - [here](https://github.com/Goosang-Yu/genet/tree/main)
-
 ## System requirement
 GenET can be run on either Mac or Linux system. GenET is currently available on Linux or Mac based systems as one of the dependent tools, ViennaRNA package, is limited to these operating systems. Windows users must establish a WSL, docker or virtual OS environment to use this tool.
 
+## ⚠️ This is a dev version of GenET "ntfargo-dev" branch, Please use main branch for stable version - [here](https://github.com/Goosang-Yu/genet/tree/main) ⚠️
+
+Unfortunately, at this time, GenET is not compatible with the latest version of Torch, which is Torch 2.0.0.
+
 ## Installation
-#### 1/ Create virtual environment and install genet
-```python
-# Create virtual env for genet. (python 3.8 was tested)
-conda create -n genet python=3.8
+```
+git clone -b ntfargo-dev git@github.com:Goosang-Yu/genet.git
+cd genet
+make install
+``` 
+
+### Manual installation
+```
+clone repo and cd to repo directory like above
+conda create -n genet python=3.11
 conda activate genet
+  
+# For OSX (MacOS)
+pip install torch==2.0.0
 
-# Install genet ( >= ver. 0.7.0)
-pip install genet
-```
-
-#### 2/ Install Pytorch
-```python
+# For Linux and Windows
 # CUDA 11.8
-pip install torch==2.0.0+cu118 -f https://download.pytorch.org/whl/torch_stable.html
+pip install torch==2.0.0+cu118 -f https://download.pytorch.org/whl/apple/cpu/torch_stable.html
+
+# CPU only
+pip install torch==2.0.0+cpu -f https://download.pytorch.org/whl/cpu
 ```
 
-#### 3/ Install ViennaRNA
-```python
-# install ViennaRNA package for prediction module
-conda install viennarna
-```
+<hr>
 
 ### Trouble shooting for installation
 #### 1/ GLIBCXX ImportError  
