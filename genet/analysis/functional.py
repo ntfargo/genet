@@ -5,40 +5,7 @@ import multiprocessing as mp
 from Bio import SeqIO
 from tqdm import tqdm
 
-
-'''
-TODO
-1. flash를 python code로 구현한 것이 없으므로, 여기서 input은 .fastq 파일만 가능
-2. 나중에 flashpy 개발이 좀 더 진행되면 도입하는 것을 생각해보자
-3. python 기본적으로 python 3.7~3.10까지 호환되는 것을 목표로 하고, 3.11도 테스트하기
-
-'''
-
 class SortByBarcodes:
-    '''# SortByBarcodes
-
-    This class makes new fastq files only containing specific barcode sequences.
-    The barcode list should be input files as DNA sequences.
-    The barcode pattern is string based on regular expressions.
-    Now, only fastq format is available for input data file.
-
-    #### Example
-    >>> from genet import analysis as ans
-    >>> ans.SortByBarcodes('./MyNGS.fastq', './Barcode_pattern.csv', 'TCGTATGCCGTCTTCTGCTTG[ATGC]{14}', n_cores=10)
-
-    The output file will be generated in current working directory in default.
-    If you want to save your output at other path, you can set the 'output_path' option.
-
-    #### Example
-    >>> ans.SortByBarcodes(seq_file='./MyNGS.fastq',
-                           barcode_file='./Barcode_pattern.csv',
-                           barcode_pattern='TCGTATGCCGTCTTCTGCTTG[ATGC]{14}',
-                           output_name='My_sorted_data',
-                           output_path='/extdata/mydir/results',
-                           n_cores=20
-                           )
-    '''
-    
     def __init__(self,
                  seq_file:str,
                  barcode_file:str,
@@ -104,37 +71,8 @@ class SortByBarcodes:
             shutil.rmtree(splits.dir)
         if silence==False: print('[Info] Done: SortByBarcodes - %s' % output_name)
 
-    # def END: __init__
-
-    def summary(self):
-        '''### Summary of the barcode sorting results
-        After sorting NGS reads by barcodes, the average read counts or distributions per barcode is shown by this method.
-
-        #### Example
-        >>> from genet import analysis as ans
-        >>> sorting = ans.SortByBarcodes('./MyNGS.fastq', './Barcode_pattern.csv', 'TCGTATGCCGTCTTCTGCTTG[ATGC]{14}', n_cores=10)
-        >>> sorting.summary()
-        '''
-
-        print('')
-
-    
-    def rankplot(self):
-        '''### Rank plot of read count distribution
-        
-        >>> from genet import analysis as ans
-        >>> sorting = ans.SortByBarcodes('./MyNGS.fastq', './Barcode_pattern.csv', 'TCGTATGCCGTCTTCTGCTTG[ATGC]{14}', n_cores=10)
-        >>> sorting.rankplot()
-        
-        '''
-# class END: SortByBarcodes
-
 
 def sort_barcode(list_sParameters):
-    '''Sorting the fastq file by barcode list
-    '''
-
-    # parameters
     df_bc            = list_sParameters[0]
     barcode_pattern  = list_sParameters[1]
     subsplit_name    = list_sParameters[2]
@@ -188,15 +126,8 @@ def sort_barcode(list_sParameters):
     for barcode, seq_rec in dict_barcode.items():
         SeqIO.write(seq_rec, '%s/%s.%s' % (temp_dir, barcode, output_format), output_format)
 
-# def END: sort_barcode
-
 
 def combine_files(list_combine_param):
-    """Combine files by name
-
-    """
-
-    # parameters
     splits_dir    = list_combine_param[0]
     output_format = list_combine_param[1]
     sOUT_DIR      = list_combine_param[2]
@@ -220,13 +151,6 @@ def combine_files(list_combine_param):
 
 
 def sort_barcode_and_combine(list_sParameters):
-    '''Sorting the fastq file by barcode list
-    sorting 하는 동시에 바로 with open으로 최종 파일에 기록하는 방법도 가능할까?
-    그럼 별도의 temp 파일을 만들지 않아도 되기 때문에 훨씬 시간도 빠르고 IO 소모가 없을듯.
-    일단 작은 사이즈로 구현해보고 검증해봐야 함. 
-    '''
-
-    # parameters
     df_bc            = list_sParameters[0]
     barcode_pattern  = list_sParameters[1]
     subsplit_name    = list_sParameters[2]
@@ -279,16 +203,3 @@ def sort_barcode_and_combine(list_sParameters):
     
     for barcode, seq_rec in dict_barcode.items():
         SeqIO.write(seq_rec, '%s/%s.%s' % (temp_dir, barcode, output_format), output_format)
-
-# def END: sort_barcode
-
-
-def loadseq():
-    '''
-    테스트용으로 만든 코드
-    
-    '''
-    
-    print('For testing')
-
-

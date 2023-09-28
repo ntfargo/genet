@@ -1,3 +1,4 @@
+# genet currently is not compatible with torch 2.0.0!
 BINARY_NAME := genet
 
 CONDA_EXISTS := $(shell if [ -x "$$(command -v conda)" ]; then echo "true"; else echo "false"; fi)
@@ -46,8 +47,6 @@ else ifeq ($(USE_ARM),true)
 	$(CONDA_ACTIVATE) $(BINARY_NAME) && pip install torch==2.0.0 -f https://download.pytorch.org/whl/torch_stable.html
 endif
 	$(CONDA_ACTIVATE) $(BINARY_NAME) && pip install viennarna
-	
-# genet currently is not compatible with torch 2.0.0!
 
 troubleshoot:
 	$(CONDA_ACTIVATE) $(BINARY_NAME) && conda install -c conda-forge mamba
